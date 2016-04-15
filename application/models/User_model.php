@@ -42,4 +42,21 @@ class User_model extends CI_Model
       return NULL;
     }
   }
+
+  public function login($data)
+  {
+    # input dalam bentuk objek
+    # mencocokan username dan password yang diinputkan dengan database
+    # mengembalikan nilai true jika betul dan false jika salah
+
+    $where = array('username' => $data->username, 'password'=> $data->password);
+    $this->db->select('id');
+    $query = $this->db->get('user', $where);
+    if (!$query->result() == NULL) {
+      return $query->result();
+    }else{
+      return false;
+    }
+  }
+
 }
