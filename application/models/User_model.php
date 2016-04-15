@@ -50,10 +50,10 @@ class User_model extends CI_Model
     # mengembalikan nilai true jika betul dan false jika salah
 
     $where = array('username' => $data->username, 'password'=> $data->password);
-    $this->db->select('id');
+    $this->db->select('id_user,nama_lengkap,tingkat_user');
     $query = $this->db->get('user', $where);
     if (!$query->result() == NULL) {
-      return $query->result();
+      return $query->row(0);
     }else{
       return false;
     }
