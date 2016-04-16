@@ -35,8 +35,9 @@ class User_model extends CI_Model
   {
     # output dalam bentuk objek
     # untuk mengambil semua data user
+    $this->db->select('nama_lengkap,username,tingkat_user');
     $query = $this->db->get('user');
-    if($query->reuslt()!=NULL){
+    if($query->result()!=NULL){
       return $query->result();
     }else{
       return NULL;
