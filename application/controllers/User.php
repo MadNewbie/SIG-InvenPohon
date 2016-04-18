@@ -40,6 +40,18 @@ class User extends CI_Controller
 
   public function password()
   {
-    # code...
+    # mengubah password
+    if ($_POST) {
+      # mengubah password
+      $data = $_POST['data'];
+      $data = (object)$data;
+      #cek validasi password
+      if ($data->password_baru == $data->verifikasi_password) {
+        $data = array('id_user' => $_SESSION['id_user'],'password' => $data->password_baru );
+        $this->User_model->update($data);
+      }else{
+        
+      }
+    }
   }
 }
