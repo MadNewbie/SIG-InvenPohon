@@ -17,4 +17,29 @@ class User extends CI_Controller
     $insert = array('user' => $data );
     $this->load->view('user/index',$insert);
   }
+
+  public function add()
+  {
+    # menambahkan user
+    if ($_POST) {
+      # jika tombol submit ditekan mengambil data dari tabel
+      $data = $_POST['data'];
+      #mengubah tipe data yang baru diambil menjadi objek
+      $data = (object)$data;
+      #memasukkan password default yaitu tanggal lahir
+      $data->password = sha1($data->tanggal_lahir);
+      #menjadikan user baru menjadi surveyor
+      $data->tingkat_user = "surveyor";
+      #memasukkan data user baru ke dalam basis data
+      $this->User_model->insert($data);
+      $this->load->view('user/add');
+    }else{
+      $this->load->view('user/add');
+    }
+  }
+
+  public function password()
+  {
+    # code...
+  }
 }

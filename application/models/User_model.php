@@ -52,7 +52,7 @@ class User_model extends CI_Model
 
     $where = array('username' => $data->username, 'password'=> $data->password);
     $this->db->select('id_user,nama_lengkap,tingkat_user');
-    $query = $this->db->get('user', $where);
+    $query = $this->db->get_where('user', $where);
     if (!$query->result() == NULL) {
       return $query->row(0);
     }else{
