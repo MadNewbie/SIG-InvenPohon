@@ -7,6 +7,19 @@ class User_model extends CI_Model
     parent::__construct();
   }
 
+  public function fetch_user($limit,$start)
+  {
+    # mengambil user berdasarkan mulai dan jumlah yang telah ditentukan
+    $this->db->limit($limit,$start);
+    $this->db->select('id_user,nama_lengkap,username,tingkat_user');
+    $query = $this->db->get('user');
+    if ($query->num_rows() > 0) {
+      return $query->result();
+    }else{
+      return false;
+    }
+  }
+
   public function insert($data)
   {
     #input dalam bentuk objek

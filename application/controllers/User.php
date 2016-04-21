@@ -13,9 +13,17 @@ class User extends CI_Controller
   public function index()
   {
     # main menu kelola user
-    $data = $this->User_model->getAll();
-    $insert = array('user' => $data );
-    $this->load->view('user/index',$insert);
+    # mengatur pagination
+    $config = array('base_url' => base_url()."user/index", 'total_rows' => count($this->User_model->getAll()), 'per_page' => 10, 'uri_segment'=>3);
+    # menginisialisasi pagination
+    $this->pagination->initialize($config);
+    #cek uri
+    $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0 ;
+    #ambil data
+    $data['result'] =  $this->User_model->fetch_user($config['per_page'], $page);
+    #membuat link
+    $data['links'] = $this->pagination->create_links();
+    $this->load->view('user/index',$data);
   }
 
   public function add()
@@ -50,8 +58,10 @@ class User extends CI_Controller
         $data = array('id_user' => $_SESSION['id_user'],'password' => $data->password_baru );
         $this->User_model->update($data);
       }else{
-        
+        $this->load->view('user/password');
       }
+    }else{
+      $this->load->view('user/password');
     }
   }
 }
