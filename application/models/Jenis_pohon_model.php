@@ -10,6 +10,19 @@ class Jenis_pohon_model extends CI_Model
     parent::__construct();
   }
 
+  public function fetch_jenis_pohon($limit,$start)
+  {
+    # mengambil jenis_pohon berdasarkan mulai dan jumlah yang telah ditentukan
+    $this->db->limit($limit,$start);
+    $this->db->select('id_jenis_pohon,nama_lokal,nama_ilmiah');
+    $query = $this->db->get('jenis_pohon');
+    if ($query->num_rows() > 0) {
+      return $query->result();
+    }else{
+      return false;
+    }
+  }
+
   public function insert($data)
   {
     # memasukkan jenis pohon baru

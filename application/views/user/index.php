@@ -1,4 +1,5 @@
-<table>
+<?php echo anchor("user/insert","Tambah User",array('class'=>'btn btn-primary'));?>
+<table class="table">
   <tr>
     <th>
       Nama Lengkap
@@ -14,7 +15,7 @@
     </th>
   </tr>
   <?php foreach ($result as $key): ?>
-    <tr>
+    <tr style="height:25px">
       <td>
         <?php echo $key->nama_lengkap ?>
       </td>
@@ -25,7 +26,9 @@
         <?php echo $key->tingkat_user ?>
       </td>
       <td>
-        <?php echo anchor("user/edit/".$key->id_user);?>
+        <div class="btn-group">
+          <?php echo anchor("user/edit/".$key->id_user,"Ubah User",array('class'=>'btn btn-success'));?>
+        </div>
       </td>
     </tr>
   <?php endforeach; ?>

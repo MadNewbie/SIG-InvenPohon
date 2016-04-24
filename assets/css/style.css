@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+.copyright span{
+  color: white;
+}
+
+.footer{
+  padding: 20px;
+  background-image: url("images/batik kecil.png");
+}
+
+.news-slide a{
+  color: black;
+}
+
+.news-display{
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+}
+
+.news-display a{
+  color: black;
+}
+
+.review-umkm{
+  margin: 5px;
+  border-radius: 10px;
+  border-color: black;
+  border-style: solid;
+}
+
+.text-welcome{
+  color: black;
+}
+
+.dropdown-menu{
+  background-color: rgba(255,255,255,0.8);;
+}
+
+.spacer{
+  height: 50px;
+}
+
+.section{
+  min-height: 500px;
+  padding-top:2%;
+  padding-bottom: 2%;
+}
+
+.content-title{
+  font-size: 50px;
+  font-weight: bolder;
+}
+
+.center{
+  margin: auto;
+}
+
+#isi{
+  padding: 10px;
+  background-color: rgba(255,255,255,0.8);
+  border-radius:5px;
+}
+
+#succsess{
+  background-image: url("images/batik kecil putih.png");
+}
+
+#investor{
+  background-color: #fbfbfb;
+}
+
+#logo{
+  display: block;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10%;
+}
+
+#holder{
+  background: url("images/background.jpg") no-repeat;
+  background-size: 100% 100%;
+  min-height: 100%;
+  min-width: 100%;
+  height: auto;
+  width: auto;
+  position: fixed;
+  top:0;
+  left:0;
+}
+
+#introduce{
+  background-repeat: repeat;
+  background-size:auto;
+  background-image: url("images/batik kecil putih.png");
+  min-height: 500px;
+}
+
+#navigation{
+  padding: 5px;
+  background-color: rgba(255,255,255,0.8);
+  /*box-shadow: 0px 4px 5px -3px #111111;*/
+}
+
+#navigation nav ul li a{
+  color: rgb(69,145,132);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#navigation nav ul li a:hover{
+  background-color: rgb(69,145,132);
+  color: white;
+}
+
+#navigation nav ul li a:focus{
+  background-color: rgb(69,145,132);
+  color: white;
+}
+
+#myCarousel img {
+  max-height: 768px;
+  width: 100%;
+}
+
+#contact-us{
+  background-color: #fbfbfb;
+}
+
+#preview{
+  position:absolute;
+  border:3px solid #ccc;
+  /*background:#333;*/
+  /*padding:5px;
+  display:none;
+  color:#fff;
+  box-shadow: 4px 4px 3px rgba(103, 115, 130, 1);*/
+}

@@ -30,10 +30,17 @@ class Auth extends CI_Controller
         $user = get_object_vars($user);
         #mengatur data pada session
         $this->session->set_userdata($user);
-        $this->load->view('home/home');
+        var_dump($_SESSION);
+        redirect('home');
       }
     }else{
       $this->load->view('login/login');
     }
+  }
+
+  public function logout()
+  {
+    $this->session->sess_destroy();
+    redirect("home");
   }
 }

@@ -1,4 +1,4 @@
-<?php echo form_open('Jenis_pohon/insert'); ?>
+<?php echo form_open('jenis_pohon/insert'); ?>
   <table>
     <tr>
       <td>

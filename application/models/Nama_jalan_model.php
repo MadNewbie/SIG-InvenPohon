@@ -10,6 +10,19 @@ class Nama_jalan_model extends CI_Model
     parent::__construct();
   }
 
+  public function fetch_nama_jalan($limit,$start)
+  {
+    # mengambil jenis_pohon berdasarkan mulai dan jumlah yang telah ditentukan
+    $this->db->limit($limit,$start);
+    $this->db->select('id_nama_jalan,nama_jalan');
+    $query = $this->db->get('nama_jalan');
+    if ($query->num_rows() > 0) {
+      return $query->result();
+    }else{
+      return false;
+    }
+  }
+
   public function insert($data)
   {
     # input dalam bentuk objek

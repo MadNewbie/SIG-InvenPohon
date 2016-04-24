@@ -14,7 +14,7 @@ class User extends CI_Controller
   {
     # main menu kelola user
     # mengatur pagination
-    $config = array('base_url' => base_url()."user/index", 'total_rows' => count($this->User_model->getAll()), 'per_page' => 10, 'uri_segment'=>3);
+    $config = array('base_url' => base_url()."user/index", 'total_rows' => count($this->User_model->getAll()), 'per_page' => 8, 'uri_segment'=>3);
     # menginisialisasi pagination
     $this->pagination->initialize($config);
     #cek uri
@@ -23,10 +23,10 @@ class User extends CI_Controller
     $data['result'] =  $this->User_model->fetch_user($config['per_page'], $page);
     #membuat link
     $data['links'] = $this->pagination->create_links();
-    $this->load->view('user/index',$data);
+    $this->template->load('template/admin','user/index',$data);
   }
 
-  public function add()
+  public function insert()
   {
     # menambahkan user
     if ($_POST) {
