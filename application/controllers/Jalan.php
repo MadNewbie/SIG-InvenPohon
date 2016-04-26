@@ -35,21 +35,28 @@ class Jalan extends CI_Controller
       $data = (object)$data;
       $this->Nama_jalan_model->insert($data);
     }else{
-      $this->load->view('jalan/add');
+      redirect('jalan');
     }
+    redirect('jalan');
   }
 
-  public function update($id)
+  public function update()
   {
     # mengubah data jalan
     if ($_POST) {
       # jika tombol submit ditekan
       $data = $_POST['data'];
       $data = (object)$data;
-      $data->id = $id;
       $this->Nama_jalan_model->update($data);
     }else{
       $this->load->view('jalan/add');
     }
+  }
+
+  public function retrieve($id_jalan)
+  {
+    # mengambil data nama jalan berdasarkan id
+    $data = $this->Nama_jalan_model->getById($id_jalan);
+    echo json_encode($data);
   }
 }

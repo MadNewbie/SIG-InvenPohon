@@ -38,9 +38,7 @@
           <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href=#>Rekap Data</a></li>
-              <li><a href="<?php echo base_url(); ?>user">Kelola Akun</a></li>
-              <li><a href="<?php echo base_url(); ?>jalan">Kelola Nama Jalan</a></li>
-              <li><a href="<?php echo base_url(); ?>jenis_pohon">Kelola Jenis Pohon</a></li>
+              <li><a href=#>Kelola Data Fisik Pohon</a></li>
               <li role="presentation" class="dropdown">
                 <a href="<?php echo base_url(); ?>" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Akun <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -56,48 +54,6 @@
         <?php echo "$contents"; ?>
       </div>
     </div>
-    <script type="text/javascript">
-      function editUser(id){
-        var user;
-        $.ajax({
-          'type':'POST',
-          'url':'<?php echo base_url() ?>user/retrieve/'+id,
-          'success':function(data){
-            user = JSON.parse(data);
-            $("#modal-ubah-user .modal-body #id_user").val(user[0].id_user);
-            $("#modal-ubah-user .modal-body #nama_lengkap").val(user[0].nama_lengkap);
-            $("#modal-ubah-user .modal-body #username").val(user[0].username);
-            $("#modal-ubah-user .modal-body #tanggal_lahir").val(user[0].tanggal_lahir);
-            $("#modal-ubah-user .modal-body #tinggi").val(user[0].tinggi);
-          }
-        });
-      }
-      function editJenisPohon(id){
-        var jenisPohon;
-        $.ajax({
-          'type':'POST',
-          'url':'<?php echo base_url() ?>jenis_pohon/retrieve/'+id,
-          'success':function(data){
-            jenisPohon = JSON.parse(data);
-            $("#modal-ubah-jenis .modal-body #id_jenis_pohon").val(jenisPohon[0].id_jenis_pohon);
-            $("#modal-ubah-jenis .modal-body #nama_lokal").val(jenisPohon[0].nama_lokal);
-            $("#modal-ubah-jenis .modal-body #nama_ilmiah").val(jenisPohon[0].nama_ilmiah);
-          }
-        });
-      }
-        function editNamaJalan(id){
-          var jalan;
-          $.ajax({
-            'type':'POST',
-            'url':'<?php echo base_url() ?>jalan/retrieve/'+id,
-            'success':function(data){
-              jalan = JSON.parse(data);
-              $("#modal-ubah-jalan .modal-body #id_nama_jalan").val(jalan[0].id_nama_jalan);
-              $("#modal-ubah-jalan .modal-body #nama_jalan").val(jalan[0].nama_jalan);
-            }
-          });
-      }
-    </script>
     <script type="text/javascript">
         $(document).ready(function(e) {
             $('#navigation').scrollToFixed();

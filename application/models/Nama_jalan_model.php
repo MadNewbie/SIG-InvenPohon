@@ -64,8 +64,8 @@ class Nama_jalan_model extends CI_Model
     # input dalam bentuk objek
     # output dalam bntuk objek
     # mengambil data nama jalan berdasarkan id
-    $where = array('id_nama_jalan' => $data->id_nama_jalan );
-    $query = $this->db->get('nama_jalan',$where);
+    $where = array('id_nama_jalan' => $data);
+    $query = $this->db->get_where('nama_jalan',$where);
     if (!$query->result()==NULL) {
       return $query->result();
     }else{

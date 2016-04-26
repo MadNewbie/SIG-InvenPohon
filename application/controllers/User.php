@@ -14,7 +14,7 @@ class User extends CI_Controller
   {
     # main menu kelola user
     # mengatur pagination
-    $config = array('base_url' => base_url()."user/index", 'total_rows' => count($this->User_model->getAll()), 'per_page' => 8, 'uri_segment'=>3);
+    $config = array('base_url' => base_url()."user/index", 'total_rows' => count($this->User_model->getAll()), 'per_page' => 8, 'uri_segment'=>3,'num_tag_close'=>' ','num_tag_open'=>' ','num_full_tag_close'=>' ');
     # menginisialisasi pagination
     $this->pagination->initialize($config);
     #cek uri
@@ -34,16 +34,17 @@ class User extends CI_Controller
       $data = $_POST['data'];
       #mengubah tipe data yang baru diambil menjadi objek
       $data = (object)$data;
+      unset($data->id_user);
       #memasukkan password default yaitu tanggal lahir
       $data->password = sha1($data->tanggal_lahir);
       #menjadikan user baru menjadi surveyor
       $data->tingkat_user = "surveyor";
       #memasukkan data user baru ke dalam basis data
       $this->User_model->insert($data);
-      $this->load->view('user/add');
     }else{
-      $this->load->view('user/add');
+      redirect('user');
     }
+    redirect('user');
   }
 
   public function password()
@@ -63,5 +64,28 @@ class User extends CI_Controller
     }else{
       $this->load->view('user/password');
     }
+  }
+
+  public function retrieve($id_user)
+  {
+    # mengambil data user berdasarkan id_user
+    $data = $this->User_model->retrieve($id_user);
+    echo json_encode($data);
+  }
+
+  public function edit()
+  {
+    # mengubah user
+    if ($_POST) {
+      # jika tombol submit ditekan mengambil data dari tabel
+      $data = $_POST['data'];
+      #mengubah tipe data yang baru diambil menjadi objek
+      $data = (object)$data;
+      #mengubah data user ke dalam basis data
+      $this->User_model->update($data);
+    }else{
+      redirect('user');
+    }
+    redirect('user');
   }
 }

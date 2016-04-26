@@ -64,10 +64,10 @@ class Jenis_pohon_model extends CI_Model
     # input dalam bentuk objek
     # output dalam bntuk objek
     # mengambil data jenis pohon berdasarkan id
-    $where = array('id_jenis_pohon' => $data->id_jenis_pohon );
-    $query = $this->db->get('jenis_pohon',$where);
+    $where = array('id_jenis_pohon' => $data);
+    $query = $this->db->get_where('jenis_pohon',$where);
     if (!$query->result()==NULL) {
-      return $query->result();
+      return $query->result_object();
     }else{
       return NULL;
     }

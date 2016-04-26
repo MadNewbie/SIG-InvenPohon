@@ -35,7 +35,29 @@ class Jenis_pohon extends CI_Controller
       $data = (object)$data;
       $this->Jenis_pohon_model->insert($data);
     }else{
-      $this->load->view('jenis_pohon/insert');
+      redirect('jenis_pohon');
     }
+    redirect('jenis_pohon');
+  }
+
+  public function edit()
+  {
+    # mengubah jenis pohon
+    if ($_POST) {
+      # jika tombol submit ditekan
+      $data = $_POST['data'];
+      $data = (object)$data;
+      $this->Jenis_pohon_model->update($data);
+    }else{
+      redirect('jenis_pohon');
+    }
+    redirect('jenis_pohon');
+  }
+
+  public function retrieve($id_jenis_pohon)
+  {
+    # mengambil data user berdasarkan id_user
+    $data = $this->Jenis_pohon_model->getById($id_jenis_pohon);
+    echo json_encode($data);
   }
 }

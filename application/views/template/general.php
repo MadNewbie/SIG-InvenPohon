@@ -47,43 +47,6 @@
         <?php echo "$contents"; ?>
       </div>
     </div>
-  <div id="modal-login" class="fade modal">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-          <h3 class="text-center">Login</h3>
-          <div class="cointainer text-center">
-            <?php echo form_open('Auth/login'); ?>
-            <table>
-              <tr>
-                <td>
-                  Username
-                </td>
-                <td>
-                  <input type="text" name="data[username]" value="">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Password
-                </td>
-                <td>
-                  <input type="password" name="data[password]" value="">
-                </td>
-              </tr>
-              <tr class="container">
-                <td class="center">
-                  <button type="submit" class="btn btn-primary" value="">Login</button>
-                </td>
-              </tr>
-            </table>
-          <?php echo form_close(); ?>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <script type="text/javascript">
         $(document).ready(function(e) {
             $('#navigation').scrollToFixed();

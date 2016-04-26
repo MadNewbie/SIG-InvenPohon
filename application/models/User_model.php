@@ -73,4 +73,15 @@ class User_model extends CI_Model
     }
   }
 
+  public function retrieve($id_user)
+  {
+    # mengambil semua data user berdasarkan id_user
+    $where = array('id_user' => $id_user);
+    $query = $this->db->get_where('user',$where);
+    if(!$query->result()==NULL){
+      return $query->result_object();
+    }else{
+      return false;
+    }
+  }
 }
