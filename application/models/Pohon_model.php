@@ -10,6 +10,19 @@ class Pohon_model extends CI_Model
     parent::__construct();
   }
 
+  public function fetch_pohon($limit,$start)
+  {
+    # mengambil data fisik pohon sejumlah limit untuk ditampilkan
+    $this->db->limit($limit,$start);
+    $this->db->select('id_pohon, id_nama_jalan, id_jenis_pohon, total_kerusakan');
+    $query = $this->db->get('pohon');
+    if ($query->num_rows() > 0) {
+      return $query->result();
+    }else{
+      return false;
+    }
+  }
+
   public function insert($data)
   {
     # input dalam bentuk objek
@@ -82,7 +95,7 @@ class Pohon_model extends CI_Model
     $where = array('id_jenis_pohon' => $data->id_jenis_pohon);
     $query = $this->db->get('pohon',$where);
     if(!$query->result()==NULL){
-      return $query->result()
+      return $query->result();
     }else{
       return NULL;
     }
