@@ -14,6 +14,8 @@
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/OpenLayers.js"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?v=3.21&key=AIzaSyBudCW2l_5UPV0-a58fCJ4GjWfPZeHbH0k"></script>
   </head>
   <body>
     <header role="banner" class="main-nav-outer navbar bs-doc-nav" id="navigation">
