@@ -64,8 +64,8 @@ class Pohon_model extends CI_Model
     # input dalam bentuk objek
     # output dalam bentuk objek
     # mengambil data pohon berdasarkan id_pohon
-    $where = array('id_pohon' => $data->id_pohon);
-    $query = $this->db->get('pohon',$where);
+    $where = array('id_pohon' => $data);
+    $query = $this->db->get_where('pohon',$where);
     if (!$query->result()==NULL) {
       return $query->result();
     }else{
@@ -78,9 +78,9 @@ class Pohon_model extends CI_Model
     # input dalam bentuk objek
     # output dalam bentuk objek
     # mengambil data pohon berdasarkan lokasi
-    $where = array('id_nama_jalan' => $data->id_nama_jalan);
-    $query = $this->db->get('pohon', $where);
-    if (!$quey->result()==NULL) {
+    $where = array('id_nama_jalan' => $data);
+    $query = $this->db->get_where('pohon',$where);
+    if (!$query->result()==NULL) {
       return $query->result();
     }else{
       return NULL;
@@ -92,8 +92,8 @@ class Pohon_model extends CI_Model
     # input dalam bentuk objek
     # output dalam bentuk objek
     # mengambil data pohon berdasarkan jenis
-    $where = array('id_jenis_pohon' => $data->id_jenis_pohon);
-    $query = $this->db->get('pohon',$where);
+    $where = array('id_jenis_pohon' => $data);
+    $query = $this->db->get_where('pohon',$where);
     if(!$query->result()==NULL){
       return $query->result();
     }else{

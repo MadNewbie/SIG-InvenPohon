@@ -133,4 +133,43 @@ class Pohon extends CI_Controller
       $this->template->load('template/surveyor','pohon/insert',$data);
     }
   }
+
+  public function generate_gis()
+  {
+    # mengambil data pohon untuk gis
+    $data = $this->Pohon_model->getAll();
+    $data = (object)$data;
+    foreach ($data as $key => $value) {
+      # menghilangkan variable yg tidak diperlukan
+      unset($value->tanggal,$value->id_user,$value->tinggi,$value->lebar_tajuk,$value->diameter_batang,$value->bentuk_tajuk,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
+      unset($value->m_1,$value->m_2,$value->m_3,$value->m_4,$value->m_5,$value->m_6,$value->validasi);
+    };
+    echo json_encode($data);
+  }
+
+  public function generate_gis_jenis($id_jenis_pohon)
+  {
+    # mengambil data pohon untuk gis
+    $data = $this->Pohon_model->getByJenis($id_jenis_pohon);
+    $data = (object)$data;
+    foreach ($data as $key => $value) {
+      # menghilangkan variable yg tidak diperlukan
+      unset($value->tanggal,$value->id_user,$value->tinggi,$value->lebar_tajuk,$value->diameter_batang,$value->bentuk_tajuk,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
+      unset($value->m_1,$value->m_2,$value->m_3,$value->m_4,$value->m_5,$value->m_6,$value->validasi);
+    };
+    echo json_encode($data);
+  }
+
+  public function generate_gis_location($id_nama_jalan)
+  {
+    # mengambil data pohon untuk gis
+    $data = $this->Pohon_model->getByLocation($id_nama_jalan);
+    $data = (object)$data;
+    foreach ($data as $key => $value) {
+      # menghilangkan variable yg tidak diperlukan
+      unset($value->tanggal,$value->id_user,$value->tinggi,$value->lebar_tajuk,$value->diameter_batang,$value->bentuk_tajuk,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
+      unset($value->m_1,$value->m_2,$value->m_3,$value->m_4,$value->m_5,$value->m_6,$value->validasi);
+    };
+    echo json_encode($data);
+  }
 }
