@@ -4,12 +4,6 @@
   color: white;
 }
 
-.footer{
-  padding: 20px;
-  background-image: url("images/batik kecil.png");
-}
-
-
 .dropdown-menu{
   background-color: rgba(255,255,255,0.8);;
 }
@@ -22,20 +16,29 @@
   margin-bottom: 0px;
 }
 
+.footer{
+  padding-bottom: 2%;
+  margin-top: 20px;
+  background-color: rgba(255,255,255,0.8);
+  border-radius:5px;
+  padding-left: 25%;
+  padding-right: 25%;
+}
+
 #isi{
   background-color: rgba(255,255,255,0.8);
   border-radius:5px;
 }
 
 #holder{
-  background: url("images/background.jpg") no-repeat;
-  background-size: 100% 100%;
+  position: fixed;
+  background: url('images/background.jpg');
   min-height: 100%;
   min-width: 100%;
-  height: auto;
-  width: auto;
-  padding-top: 2%;
-  padding-bottom: 2%;
+  background-size: 100%;
+  top:0;
+  left:0;
+  z-index: -1;
 }
 
 #navigation{

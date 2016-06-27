@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
   <head>
+<html>
     <meta charset="utf-8">
     <title>Sistem Informasi Geografis Inventarisasi Pohon</title>
     <link rel="icon" href="<?php echo base_url(); ?>assets/css/images/logotrans.png">
@@ -14,8 +14,9 @@
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jscharts.js"></script>
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?v=3.21&key=AIzaSyBudCW2l_5UPV0-a58fCJ4GjWfPZeHbH0k"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/markerclusterer.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.21&key=AIzaSyBudCW2l_5UPV0-a58fCJ4GjWfPZeHbH0k"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-scrolltofixed.js"></script>
   </head>
   <body>
     <header role="banner" class="main-nav-outer navbar bs-doc-nav" id="navigation">
@@ -33,10 +34,13 @@
         </div>
         <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href=#>Rekap Data</a></li>
+            <li><a href="<?php echo base_url(); ?>rekap">Rekap Data</a></li>
+            <li><a href="<?php echo base_url();?>info_grafis">Info Grafis</a></li>
             <li><a href="<?php echo base_url(); ?>user">Kelola Akun</a></li>
             <li><a href="<?php echo base_url(); ?>jalan">Kelola Nama Jalan</a></li>
             <li><a href="<?php echo base_url(); ?>jenis_pohon">Kelola Jenis Pohon</a></li>
+            <li><a href="<?php echo base_url();?>pantau_surveyor">Pantau Surveyor</a></li>
+            <li><a href="<?php echo base_url();?>bantuan">Bantuan</a></li>
             <li role="presentation" class="dropdown">
               <a href="<?php echo base_url(); ?>" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Akun <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -49,9 +53,12 @@
       </div>
     </header>
     <div id="holder">
-      <div class="container" id="isi">
-        <?php echo "$contents"; ?>
-      </div>
+    </div>
+    <div class="container" id="isi">
+      <?php echo "$contents"; ?>
+    </div>
+    <div class="footer">
+      <p class="text-center">Page rendered in <strong><?php echo $this->benchmark->elapsed_time('start','end');?></strong> seconds.  <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
     </div>
     <script type="text/javascript">
       function editUser(id){
@@ -103,9 +110,11 @@
                 return false
             });
         });
-        <?php if(!isempty($notif)):?>
-          $.jGrowl("<?php echo $notif?>");
-        <?php endif;?>
+    </script>
+    <script type="text/javascript">
+      <?php if($notif!=""):?>
+      $.jGrowl("<?php echo $notif?>");
+      <?php endif;?>
     </script>
   </body>
 </html>

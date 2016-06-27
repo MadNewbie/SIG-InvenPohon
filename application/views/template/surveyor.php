@@ -14,6 +14,8 @@
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jscharts.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/markerclusterer.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-scrolltofixed.js"></script>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.21&key=AIzaSyBudCW2l_5UPV0-a58fCJ4GjWfPZeHbH0k"></script>
   </head>
@@ -33,7 +35,8 @@
         </div>
         <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href=#>Rekap Data</a></li>
+            <li><a href="<?php echo base_url(); ?>rekap">Rekap Data</a></li>
+            <li><a href="<?php echo base_url();?>info_grafis">Info Grafis</a></li>
             <li><a href="<?php echo base_url();?>pohon">Kelola Data Fisik Pohon</a></li>
             <li role="presentation" class="dropdown">
               <a href="<?php echo base_url(); ?>" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Akun <span class="caret"></span></a>
@@ -47,9 +50,12 @@
       </div>
     </header>
     <div id="holder">
-      <div class="container" id="isi">
-        <?php echo "$contents"; ?>
-      </div>
+    </div>
+    <div class="container" id="isi">
+      <?php echo "$contents"; ?>
+    </div>
+    <div class="footer">
+      <p class="text-center">Page rendered in <strong><?php echo $this->benchmark->elapsed_time('start','end');?></strong> seconds.  <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
     </div>
     <script>
         $(document).ready(function(e) {
@@ -59,9 +65,6 @@
                 return false
             });
         });
-        <?php if(!issempty($notif)):?>
-          $.jGrowl("<?php echo $notif?>");
-        <?php endif;?>
     </script>
   </body>
 </html>

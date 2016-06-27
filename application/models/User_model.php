@@ -64,7 +64,7 @@ class User_model extends CI_Model
     # mengembalikan nilai true jika betul dan false jika salah
 
     $where = array('username' => $data->username, 'password'=> $data->password);
-    $this->db->select('id_user,nama_lengkap,tingkat_user');
+    $this->db->select('id_user,nama_lengkap,tingkat_user,tinggi');
     $query = $this->db->get_where('user', $where);
     if (!$query->result() == NULL) {
       return $query->row(0);

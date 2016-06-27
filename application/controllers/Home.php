@@ -12,6 +12,7 @@ class Home extends CI_Controller
 
   public function index()
   {
+    $this->benchmark->mark('start');
     # controller main menu cek session
     if(isset($_SESSION['tingkat_user'])){
       switch ($_SESSION['tingkat_user']) {
@@ -28,5 +29,6 @@ class Home extends CI_Controller
     }else{
       $this->template->load('template/general','home/home');
     }
+    $this->benchmark->mark('end');
   }
 }

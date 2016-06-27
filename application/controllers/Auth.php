@@ -13,6 +13,7 @@ class Auth extends CI_Controller
 
   public function login()
   {
+    $this->benchmark->mark('start');
     if ($_POST) {
       $data = $_POST['data'];
       $data = (object) $data;
@@ -36,11 +37,14 @@ class Auth extends CI_Controller
     }else{
       $this->load->view('login/login');
     }
+    $this->benchmark->mark('end');
   }
 
   public function logout()
   {
+    $this->benchmark->mark('start');
     $this->session->sess_destroy();
     redirect("home");
+    $this->benchmark->mark('end');
   }
 }

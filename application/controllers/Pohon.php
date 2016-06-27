@@ -15,6 +15,7 @@ class Pohon extends CI_Controller
 
   public function index()
   {
+    $this->benchmark->mark('start');
     # halaman utama menu pohon
     $config = array('base_url' => base_url()."pohon/index", 'total_rows'=>count($this->Pohon_model->getAll()),'per_page'=>8,'uri_segment'=>3,'num_tag_close'=>' ','num_tag_open'=>' ','num_tag_full'=>' ');;
     $this->pagination->initialize($config);
@@ -24,7 +25,9 @@ class Pohon extends CI_Controller
     $data['jenis_pohon'] = $this->Jenis_pohon_model->getAll();
     $data['nama_jalan'] = $this->Nama_jalan_model->getAll();
     $this->template->load('template/surveyor','pohon/index',$data);
+    $this->benchmark->mark('end');
   }
+
 
   public function insert()
   {
@@ -126,6 +129,9 @@ class Pohon extends CI_Controller
       // var_dump($data);
       // die();
       $data->validasi = 0;
+      // file_put_contents("data",json_encode($raw_data));
+      file_put_contents("data olahan web",json_encode($data));
+      die();
       $this->Pohon_model->insert($data);
       redirect('pohon');
     }else{
@@ -136,40 +142,83 @@ class Pohon extends CI_Controller
 
   public function generate_gis()
   {
+    $this->benchmark->mark('start');
     # mengambil data pohon untuk gis
     $data = $this->Pohon_model->getAll();
     $data = (object)$data;
+    $jenis = (object) $this->Jenis_pohon_model->getAll();
     foreach ($data as $key => $value) {
       # menghilangkan variable yg tidak diperlukan
-      unset($value->tanggal,$value->id_user,$value->tinggi,$value->lebar_tajuk,$value->diameter_batang,$value->bentuk_tajuk,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
-      unset($value->m_1,$value->m_2,$value->m_3,$value->m_4,$value->m_5,$value->m_6,$value->validasi);
+      foreach($jenis as $a => $b){
+        if($value->id_jenis_pohon == $b->id_jenis_pohon){
+          $value->nama_lokal = $b->nama_lokal;
+          $value->nama_ilmiah = $b->nama_ilmiah;
+        }
+      };
+      unset($value->tanggal,$value->id_user,$value->lebar_tajuk,$value->diameter_batang,$value->bentuk_tajuk,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
+      unset($value->m_1,$value->m_2,$value->m_3,$value->m_4,$value->m_5,$value->m_6,$value->validasi,$value->id_nama_jalan);
     };
     echo json_encode($data);
+    $this->benchmark->mark('end');
   }
 
   public function generate_gis_jenis($id_jenis_pohon)
   {
+    $this->benchmark->mark('start');
     # mengambil data pohon untuk gis
+    $dataJalan = $this->Nama_jalan_model->getAll();
+    $dataJenis = $this->Jenis_pohon_model->getAll();
     $data = $this->Pohon_model->getByJenis($id_jenis_pohon);
+    foreach ($dataJalan as $key => $value) {
+      if($data[0]->id_nama_jalan==$value->id_nama_jalan){
+        $data[0]->nama_jalan = $value->nama_jalan;
+        break;
+      }
+    }
+    foreach ($dataJenis as $key => $value) {
+      if($data[0]->id_jenis_pohon==$value->id_jenis_pohon){
+        $data[0]->nama_lokal = $value->nama_lokal;
+        $data[0]->nama_ilmiah = $value->nama_ilmiah;
+        break;
+      }
+    }
     $data = (object)$data;
     foreach ($data as $key => $value) {
       # menghilangkan variable yg tidak diperlukan
-      unset($value->tanggal,$value->id_user,$value->tinggi,$value->lebar_tajuk,$value->diameter_batang,$value->bentuk_tajuk,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
+      unset($value->tanggal,$value->id_user,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
       unset($value->m_1,$value->m_2,$value->m_3,$value->m_4,$value->m_5,$value->m_6,$value->validasi);
     };
     echo json_encode($data);
+    $this->benchmark->mark('end');
   }
 
   public function generate_gis_location($id_nama_jalan)
   {
+    $this->benchmark->mark('start');
     # mengambil data pohon untuk gis
+    $dataJalan = $this->Nama_jalan_model->getAll();
+    $dataJenis = $this->Jenis_pohon_model->getAll();
     $data = $this->Pohon_model->getByLocation($id_nama_jalan);
+    foreach ($dataJalan as $key => $value) {
+      if($data[0]->id_nama_jalan==$value->id_nama_jalan){
+        $data[0]->nama_jalan = $value->nama_jalan;
+        break;
+      }
+    }
+    foreach ($dataJenis as $key => $value) {
+      if($data[0]->id_jenis_pohon==$value->id_jenis_pohon){
+        $data[0]->nama_lokal = $value->nama_lokal;
+        $data[0]->nama_ilmiah = $value->nama_ilmiah;
+        break;
+      }
+    }
     $data = (object)$data;
     foreach ($data as $key => $value) {
       # menghilangkan variable yg tidak diperlukan
-      unset($value->tanggal,$value->id_user,$value->tinggi,$value->lebar_tajuk,$value->diameter_batang,$value->bentuk_tajuk,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
+      unset($value->tanggal,$value->id_user,$value->foto_fisik,$value->ab_1,$value->ab_2,$value->ab_3,$value->ab_4,$value->ab_5,$value->ab_6,$value->cd_1,$value->cd_2,$value->cd_3,$value->cd_4,$value->cd_5,$value->cd_6);
       unset($value->m_1,$value->m_2,$value->m_3,$value->m_4,$value->m_5,$value->m_6,$value->validasi);
     };
     echo json_encode($data);
+    $this->benchmark->mark('end');
   }
 }

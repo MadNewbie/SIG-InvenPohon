@@ -29,6 +29,7 @@
         <div class="btn-group">
           <?php if ($_SESSION['id_user'] != $key->id_user) {
             echo '<button class="btn btn-success" type="button" onClick=editUser('.$key->id_user.') data-toggle="modal" data-target="#modal-ubah-user">Ubah User</button>';
+            echo anchor(base_url()."user/reset/".$key->id_user,"Reset Password",array('class'=>'btn btn-warning'));
           }?>
         </div>
       </td>

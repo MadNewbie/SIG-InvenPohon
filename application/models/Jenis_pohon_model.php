@@ -53,7 +53,7 @@ class Jenis_pohon_model extends CI_Model
     # mengambil semua data jenis pohon dalam basis data
     $query = $this->db->get('jenis_pohon');
     if (!$query->result()==NULL) {
-      return $query->result();
+      return $query->result_object();
     }else{
       return NULL;
     }
@@ -68,6 +68,19 @@ class Jenis_pohon_model extends CI_Model
     $query = $this->db->get_where('jenis_pohon',$where);
     if (!$query->result()==NULL) {
       return $query->result_object();
+    }else{
+      return NULL;
+    }
+  }
+
+  public function getByNamaIlmiah($data)
+  {
+    # mengambil data dengan parameter nama ilmiah
+    $this->db->select('id_jenis_pohon');
+    $this->db->where('nama_ilmiah',$data);
+    $query = $this->db->get('jenis_pohon');
+    if (!$query->result()==NULL) {
+      return $query->row(0);
     }else{
       return NULL;
     }

@@ -13,6 +13,7 @@ class Jenis_pohon extends CI_Controller
 
   public function index()
   {
+    $this->benchmark->mark('start');
     # main menu untuk mengatur jenis pohon
     $config = array('base_url' => base_url()."jenis_pohon/index", 'total_rows' => count($this->Jenis_pohon_model->getAll()), 'per_page' => 8, 'uri_segment'=>3);
     # menginisialisasi pagination
@@ -24,10 +25,12 @@ class Jenis_pohon extends CI_Controller
     #membuat link
     $data['links'] = $this->pagination->create_links();
     $this->template->load('template/admin','jenis_pohon/index',$data);
+    $this->benchmark->mark('end');
   }
 
   public function insert()
   {
+    $this->benchmark->mark('start');
     # memasukkan data jenis pohon baru
     if ($_POST) {
       # jika tombol submit ditekan
@@ -38,10 +41,12 @@ class Jenis_pohon extends CI_Controller
       redirect('jenis_pohon');
     }
     redirect('jenis_pohon');
+    $this->benchmark->mark('end');
   }
 
   public function edit()
   {
+    $this->benchmark->mark('start');
     # mengubah jenis pohon
     if ($_POST) {
       # jika tombol submit ditekan
@@ -52,12 +57,24 @@ class Jenis_pohon extends CI_Controller
       redirect('jenis_pohon');
     }
     redirect('jenis_pohon');
+    $this->benchmark->mark('end');
+  }
+
+  public function getAll()
+  {
+    $this->benchmark->mark('start');
+    # mengambil semua jenis pohon
+    $data = $this->Jenis_pohon_model->getAll();
+    echo json_encode($data);
+    $this->benchmark->mark('end');
   }
 
   public function retrieve($id_jenis_pohon)
   {
+    $this->benchmark->mark('start');
     # mengambil data user berdasarkan id_user
     $data = $this->Jenis_pohon_model->getById($id_jenis_pohon);
     echo json_encode($data);
+    $this->benchmark->mark('end');
   }
 }

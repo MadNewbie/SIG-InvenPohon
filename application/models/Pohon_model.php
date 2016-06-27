@@ -34,7 +34,7 @@ class Pohon_model extends CI_Model
     }
   }
 
-  public function update($data)
+  public function updateById($data)
   {
     # input dalam bentuk objek
     # mengubah data pohon yang telah tersimpan
@@ -67,7 +67,7 @@ class Pohon_model extends CI_Model
     $where = array('id_pohon' => $data);
     $query = $this->db->get_where('pohon',$where);
     if (!$query->result()==NULL) {
-      return $query->result();
+      return $query->result_object();
     }else{
       return NULL;
     }
@@ -87,6 +87,23 @@ class Pohon_model extends CI_Model
     }
   }
 
+  public function getByLocationArray($data)
+  {
+    # input dalam bentuk objek
+    # output dalam bentuk objek
+    # mengambil data pohon berdasarkan lokasi
+    // $this->db->select('')
+    //
+    // $query = $this->db->get('pohon');
+    $where = array('id_nama_jalan' => $data);
+    $query = $this->db->get_where('pohon',$where);
+    if (!$query->result()==NULL) {
+      return $query->result_array();
+    }else{
+      return NULL;
+    }
+  }
+
   public function getByJenis($data)
   {
     # input dalam bentuk objek
@@ -96,6 +113,34 @@ class Pohon_model extends CI_Model
     $query = $this->db->get_where('pohon',$where);
     if(!$query->result()==NULL){
       return $query->result();
+    }else{
+      return NULL;
+    }
+  }
+
+  public function getByPosition($data)
+  {
+    # mengambil data pohon berdasarkan posisi gps
+    file_put_contents("where data pohon query",json_encode($data));
+    $this->db->select('*');
+    $this->db->like("longitude",$data->longitude,"after");
+    $this->db->like("latitude",$data->latitude,"after");
+    $query = $this->db->get("pohon");
+    file_put_contents("query",json_encode($query->result_object()));
+    if(!$query->result()==NULL){
+      return $query->result();
+    }else{
+      return NULL;
+    }
+  }
+
+  public function getAllId()
+  {
+    # mengambil semua id_pohon
+    $this->db->select('id_pohon');
+    $query = $this->db->get("pohon");
+    if (!$query->result()==NULL) {
+      return $query->result_object();
     }else{
       return NULL;
     }

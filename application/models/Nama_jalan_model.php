@@ -53,7 +53,7 @@ class Nama_jalan_model extends CI_Model
     # mengambil semua data nama jalan dalam basis data
     $query = $this->db->get('nama_jalan');
     if (!$query->result()==NULL) {
-      return $query->result();
+      return $query->result_object();
     }else{
       return NULL;
     }
@@ -68,6 +68,19 @@ class Nama_jalan_model extends CI_Model
     $query = $this->db->get_where('nama_jalan',$where);
     if (!$query->result()==NULL) {
       return $query->result();
+    }else{
+      return NULL;
+    }
+  }
+
+  public function getByNama($data)
+  {
+    # mengambil id jalan dengan parameter nama jalan
+    $this->db->select('id_nama_jalan');
+    $this->db->where('nama_jalan',$data);
+    $query = $this->db->get('nama_jalan');
+    if (!$query->result()==NULL) {
+      return $query->row(0);
     }else{
       return NULL;
     }
