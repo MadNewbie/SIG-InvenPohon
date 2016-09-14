@@ -23,6 +23,19 @@ class Pohon_model extends CI_Model
     }
   }
 
+  public function fetch_pohon_all($limit,$start)
+  {
+    # mengambil data fisik pohon sejumlah limit untuk ditampilkan
+    $this->db->limit($limit,$start);
+    $this->db->select('*');
+    $query = $this->db->get('pohon');
+    if ($query->num_rows() > 0) {
+      return $query->result();
+    }else{
+      return false;
+    }
+  }
+
   public function insert($data)
   {
     # input dalam bentuk objek

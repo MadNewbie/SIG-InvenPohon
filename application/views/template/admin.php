@@ -3,7 +3,7 @@
 <html>
     <meta charset="utf-8">
     <title>Sistem Informasi Geografis Inventarisasi Pohon</title>
-    <link rel="icon" href="<?php echo base_url(); ?>assets/css/images/logotrans.png">
+    <link rel="icon" href="<?php echo base_url(); ?>assets/css/images/icontrans.png">
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css">
@@ -15,7 +15,7 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jscharts.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/markerclusterer.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.21&key=AIzaSyBudCW2l_5UPV0-a58fCJ4GjWfPZeHbH0k"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.25&key=AIzaSyCwYkFcLz7_zWfo8flCClDD_HzGsp57QRc"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-scrolltofixed.js"></script>
   </head>
   <body>
@@ -29,7 +29,7 @@
             <span style="background-color:red" class="icon-bar"></span>
           </button>
           <a href="<?php echo base_url(); ?>Home">
-              <img src="<?php echo base_url();?>assets/css/images/logotrans.png" height="50px">
+              <img src="<?php echo base_url();?>assets/css/images/icontrans.png" height="50px">
           </a>
         </div>
         <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
@@ -44,7 +44,7 @@
             <li role="presentation" class="dropdown">
               <a href="<?php echo base_url(); ?>" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Akun <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url(); ?>Admin/update_account/<?php echo $_SESSION['id_user'];?>">Ubah</a></li>
+                <li><a href="" data-toggle="modal"data-target="#modal-ubah-password">Ubah Password</a></li>
                 <li><a href="<?php echo base_url(); ?>Auth/logout">Keluar</a></li>
               </ul>
             </li>
@@ -59,6 +59,44 @@
     </div>
     <div class="footer">
       <p class="text-center">Page rendered in <strong><?php echo $this->benchmark->elapsed_time('start','end');?></strong> seconds.  <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+    </div>
+    <!-- modal ubah password -->
+    <div id="modal-ubah-password" class="fade modal">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            <h3 class="text-center">Ubah Password</h3>
+            <div>
+              <?php echo form_open('User/password'); ?>
+              <table class="table">
+                <tr>
+                  <td>
+                    Password Baru
+                  </td>
+                  <td>
+                    <input type="password" name="data[password_baru]" value="" required="true">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Verifikasi Password Baru
+                  </td>
+                  <td>
+                    <input type="password" name="data[verifikasi_password]" value="" required="true">
+                  </td>
+                </tr>
+                <tr class="container">
+                  <td class="center">
+                    <button type="submit" class="btn btn-primary" value="">Ubah</button>
+                  </td>
+                </tr>
+              </table>
+            <?php echo form_close(); ?>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script type="text/javascript">
       function editUser(id){
@@ -112,8 +150,8 @@
         });
     </script>
     <script type="text/javascript">
-      <?php if($notif!=""):?>
-      $.jGrowl("<?php echo $notif?>");
+      <?php if(!empty($this->session->flashdata('notif'))):?>
+      $.jGrowl("<?php echo $this->session->flashdata('notif'); ?>");
       <?php endif;?>
     </script>
   </body>

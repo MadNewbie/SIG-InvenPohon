@@ -149,6 +149,7 @@ class Pohon extends CI_Controller
     $jenis = (object) $this->Jenis_pohon_model->getAll();
     foreach ($data as $key => $value) {
       # menghilangkan variable yg tidak diperlukan
+      $value->tinggi = number_format($value->tinggi,2);
       foreach($jenis as $a => $b){
         if($value->id_jenis_pohon == $b->id_jenis_pohon){
           $value->nama_lokal = $b->nama_lokal;

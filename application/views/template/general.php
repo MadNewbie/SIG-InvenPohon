@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Sistem Informasi Geografis Inventarisasi Pohon</title>
-    <link rel="icon" href="<?php echo base_url(); ?>assets/css/images/logotrans.png">
+    <link rel="icon" href="<?php echo base_url(); ?>assets/css/images/icontrans.png">
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/markerclusterer.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-scrolltofixed.js"></script>
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?v=3.21&key=AIzaSyBudCW2l_5UPV0-a58fCJ4GjWfPZeHbH0k"></script>
+            src="https://maps.googleapis.com/maps/api/js?v=3.25&key=AIzaSyCwYkFcLz7_zWfo8flCClDD_HzGsp57QRc"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js"></script>
   </head>
   <body>
@@ -32,11 +32,12 @@
             <span style="background-color:red" class="icon-bar"></span>
           </button>
           <a href="<?php echo base_url(); ?>Home">
-              <img src="<?php echo base_url();?>assets/css/images/logotrans.png" height="50px">
+              <img src="<?php echo base_url();?>assets/css/images/icontrans.png" height="50px">
           </a>
         </div>
         <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="<?php echo base_url();?>Tentang_kami">Tentang Kami</a></li>
             <li><a href="<?php echo base_url();?>Rekap">Rekap Data</a></li>
             <li><a href="<?php echo base_url();?>info_grafis">Info Grafis</a></li>
             <li><a href="<?php echo base_url();?>bantuan">Bantuan</a></li>
@@ -64,8 +65,8 @@
           });
     </script>
     <script type="text/javascript">
-      <?php if($notif!=""):?>
-      $.jGrowl("<?php echo $notif?>");
+      <?php if(!empty($this->session->flashdata('notif'))):?>
+      $.jGrowl("<?php echo $this->session->flashdata('notif'); ?>");
       <?php endif;?>
     </script>
   </body>

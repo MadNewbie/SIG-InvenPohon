@@ -58,7 +58,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
         <h3 class="text-center">Ubah Jalan</h3>
         <div>
-          <?php echo form_open('jenis_pohon/update'); ?>
+          <?php echo form_open('jalan/update'); ?>
             <table>
               <tr>
                 <td>

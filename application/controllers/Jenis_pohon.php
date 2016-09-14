@@ -37,6 +37,7 @@ class Jenis_pohon extends CI_Controller
       $data = $_POST['data'];
       $data = (object)$data;
       $this->Jenis_pohon_model->insert($data);
+      $this->session->set_flashdata('notif','Data berhasil ditambahkan');
     }else{
       redirect('jenis_pohon');
     }
@@ -53,6 +54,7 @@ class Jenis_pohon extends CI_Controller
       $data = $_POST['data'];
       $data = (object)$data;
       $this->Jenis_pohon_model->update($data);
+      $this->session->set_flashdata('notif','Data berhasil diubah');
     }else{
       redirect('jenis_pohon');
     }

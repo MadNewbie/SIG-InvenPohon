@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <tr>
   <td>
-    {IDPOHON}
+    {TANGGAL}
   </td>
   <td>
     {NAMALOKAL}
@@ -37,7 +37,7 @@
 <table class="table">
   <tr>
     <th>
-      Id Pohon
+      Tanggal
     </th>
     <th>
       Nama Lokal
@@ -62,44 +62,27 @@
     </th>
   </tr>
   <tbody id="tbody-data">
-    <?php foreach ($data as $key => $value) {
-      echo str_replace([
-        '{IDPOHON}',
-        '{NAMALOKAL}',
-        '{NAMAILMIAH}',
-        '{NAMAJALAN}',
-        '{TINGGI}',
-        '{LEBARTAJUK}',
-        '{DIAMETERBATANG}',
-        '{TOTALKERUSAKAN}',
-      ],[
-          $value->id_pohon,
-          $value->nama_lokal,
-          $value->nama_ilmiah,
-          $value->nama_jalan,
-          $value->tinggi,
-          $value->lebar_tajuk,
-          $value->diameter_batang/pi(),
-          $value->total_kerusakan
-      ], $template);
-    } ?>
   </tbody>
 </table>
 <script type="text/javascript">
   var template = '<?= preg_replace('/[\r\n]/', '', $template) ?>';
   $( "#idUser").change(function(){
+    call_pagination(0);
+  });
+
+  function call_pagination(start){
     $('#tbody-data').html('');
     var idUser = $('#idUser').val();
     $.ajax({
       'type':'POST',
       'data':{'idUser':idUser},
-      'url':'<?php echo base_url(); ?>pantau_surveyor/getByIdUser',
+      'url':'<?php echo base_url(); ?>pantau_surveyor/getByIdUser/'+start,
       'success':function(data){
         var result=JSON.parse(data);
-        for ( var i in result) {
-          var datum = result[i];
+        for ( var i in result.data) {
+          var datum = result.data[i];
           var row = template;
-          row = row.replace(/\{IDPOHON}/, datum.id_pohon);
+          row = row.replace(/\{TANGGAL}/, datum.tanggal);
           row = row.replace(/\{NAMALOKAL}/, datum.nama_lokal);
           row = row.replace(/\{NAMAILMIAH}/, datum.nama_ilmiah);
           row = row.replace(/\{NAMAJALAN}/, datum.nama_jalan);
@@ -109,7 +92,14 @@
           row = row.replace(/\{TOTALKERUSAKAN}/, datum.total_kerusakan);
           $('#tbody-data').append(row);
         }
+        var trfoot = $('<tr>').append('<td colspan="100">').append(result.link);
+        $(trfoot).find('a').click(function(){
+          var href= $(this).attr('href').replace(/[^\d]/,'');
+          call_pagination(href);
+          return false;
+        });
+        $('#tbody-data').append(trfoot);
       }
     });
-  });
+  }
 </script>

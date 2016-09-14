@@ -36,7 +36,15 @@ class Jalan extends CI_Controller
       # jika tombol submit ditekan
       $data = $_POST['data'];
       $data = (object)$data;
-      $this->Nama_jalan_model->insert($data);
+      $this->db->select('nama_jalan');
+      $this->db->where('nama_jalan',$data->nama_jalan);
+      $valid = $this->db->get('nama_jalan');
+      if(!empty($valid->result_object())){
+          $this->session->set_flashdata('notif','Data sudah ada');
+      }else{
+        $this->Nama_jalan_model->insert($data);
+        $this->session->set_flashdata('notif','Data berhasil ditambahkan');
+      }
     }else{
       redirect('jalan');
     }
@@ -52,10 +60,19 @@ class Jalan extends CI_Controller
       # jika tombol submit ditekan
       $data = $_POST['data'];
       $data = (object)$data;
-      $this->Nama_jalan_model->update($data);
+      $this->db->select('nama_jalan');
+      $this->db->where('nama_jalan',$data->nama_jalan);
+      $valid = $this->db->get('nama_jalan');
+      if(!empty($valid->result_object())){
+          $this->session->set_flashdata('notif','Data sudah ada');
+      }else{
+        $this->Nama_jalan_model->update($data);
+        $this->session->set_flashdata('notif','Data berhasil diubah');
+      }
     }else{
-      $this->load->view('jalan/add');
+      redirect('jalan');
     }
+    redirect('jalan');
     $this->benchmark->mark('end');
   }
 

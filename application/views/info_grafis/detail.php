@@ -1,13 +1,13 @@
-<div class="col-lg-4 col-md-4 col-xs-12" style="min-height:500px">
-  <img style="min-height:500px"src="<?php echo base_url();?>assets/uploads/pohon/<?php echo $result[0]->foto_fisik?>" alt="">
+<div class="col-lg-4 col-md-4 col-xs-12" style="margin:10px 0px; border-style:solid; border-color:black; border-radius:5px; min-height:500px">
+  <img style="min-height:460px"src="<?php echo base_url();?>assets/uploads/pohon/<?php echo $result[0]->foto_fisik?>" alt="">
 </div>
 <div class="col-lg-8 col-md-8 col-xs-12">
   <div class="">
-    <a clas="btn btn-success" href="<?php echo base_url();?>rekap/detail/<?php echo $result[0]->id_pohon-1?>"><</a>
+    <!--<a clas="btn btn-success" href="<?php echo base_url();?>rekap/detail/<?php echo $result[0]->id_pohon-1?>"><</a>-->
     <td>
       <?php echo $result[0]->id_pohon ?>
     </td>
-    <a clas="btn btn-success"href="<?php echo base_url();?>rekap/detail/<?php echo $result[0]->id_pohon+1?>">></a>
+    <!--<a clas="btn btn-success"href="<?php echo base_url();?>rekap/detail/<?php echo $result[0]->id_pohon+1?>">></a>-->
   </div>
   <table class="table">
     <tr>
@@ -39,7 +39,7 @@
         Tinggi
       </td>
       <td>
-        <?php echo $result[0]->tinggi ?> Meter
+        <?php echo number_format($result[0]->tinggi-1.1, 2) ?> Meter
       </td>
     </tr>
     <tr>
@@ -55,7 +55,7 @@
         Diameter Batang
       </td>
       <td>
-        <?php echo $result[0]->diameter_batang/pi() ?> Sentimeter
+        <?php echo number_format($result[0]->diameter_batang/pi(),2) ?> Centimeter
       </td>
     </tr>
     <tr>

@@ -39,8 +39,8 @@ class Info_grafis extends CI_Controller
   {
     $this->benchmark->mark('start');
     $rawDataPohon = $this->Pohon_model->getById($id_pohon);
-    // var_dump($rawId);
-    // die();
+    //var_dump($rawId);
+    //die();
     $dataJenis = $this->Jenis_pohon_model->getAll();
     $dataJalan = $this->Nama_jalan_model->getAll();
     // die();

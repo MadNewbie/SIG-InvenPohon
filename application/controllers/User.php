@@ -44,6 +44,7 @@ class User extends CI_Controller
       $data->tingkat_user = "surveyor";
       #memasukkan data user baru ke dalam basis data
       $this->User_model->insert($data);
+      $this->session->set_flashdata('notif','Data berhasil ditambahkan');
     }else{
       redirect('user');
     }
@@ -62,14 +63,14 @@ class User extends CI_Controller
       #cek validasi password
       if ($data->password_baru == $data->verifikasi_password) {
         $data->password_baru = sha1($data->password_baru);
-        $data = array('id_user' => $_SESSION['id_user'],'password' => $data->password_baru );
+        $data = (object)array('id_user' => $_SESSION['id_user'],'password' => $data->password_baru );
         $this->User_model->update($data);
+        $this->session->set_flashdata('notif','Password Berhasil Diubah');
       }else{
-        $this->load->view('user/password');
+        $this->session->set_flashdata('notif','Password Gagal Diubah');
       }
-    }else{
-      $this->load->view('user/password');
     }
+    redirect(Home);
     $this->benchmark->mark('end');
   }
 
@@ -93,6 +94,7 @@ class User extends CI_Controller
       $data = (object)$data;
       #mengubah data user ke dalam basis data
       $this->User_model->update($data);
+      $this->session->set_flashdata('notif','Data berhasil diubah');
     }else{
       redirect('user');
     }
@@ -107,6 +109,7 @@ class User extends CI_Controller
     $data = array('id_user' => $id_user,'password'=>$password);
     $data = (object) $data;
     $this->User_model->update($data);
+    $this->session->set_flashdata('notif','Password berhasil diatur ulang');
     redirect("user");
   }
 }

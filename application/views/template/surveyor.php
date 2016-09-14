@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Sistem Informasi Geografis Inventarisasi Pohon</title>
-    <link rel="icon" href="<?php echo base_url(); ?>assets/css/images/logotrans.png">
+    <link rel="icon" href="<?php echo base_url(); ?>assets/css/images/icontrans.png">
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css">
@@ -15,9 +15,8 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.jgrowl.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jscharts.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/markerclusterer.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.25&key=AIzaSyCwYkFcLz7_zWfo8flCClDD_HzGsp57QRc"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-scrolltofixed.js"></script>
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?v=3.21&key=AIzaSyBudCW2l_5UPV0-a58fCJ4GjWfPZeHbH0k"></script>
   </head>
   <body>
     <header role="banner" class="main-nav-outer navbar bs-doc-nav" id="navigation">
@@ -35,13 +34,11 @@
         </div>
         <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="<?php echo base_url(); ?>rekap">Rekap Data</a></li>
+            <li><a href="<?php echo base_url();?>Rekap">Rekap Data</a></li>
             <li><a href="<?php echo base_url();?>info_grafis">Info Grafis</a></li>
-            <li><a href="<?php echo base_url();?>pohon">Kelola Data Fisik Pohon</a></li>
             <li role="presentation" class="dropdown">
               <a href="<?php echo base_url(); ?>" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Akun <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url(); ?>Admin/update_account/<?php echo $_SESSION['id_user'];?>">Ubah</a></li>
                 <li><a href="<?php echo base_url(); ?>Auth/logout">Keluar</a></li>
               </ul>
             </li>
@@ -65,6 +62,11 @@
                 return false
             });
         });
+    </script>
+    <script type="text/javascript">
+      <?php if(!empty($this->session->flashdata('notif'))):?>
+      $.jGrowl("<?php echo $this->session->flashdata('notif'); ?>");
+      <?php endif;?>
     </script>
   </body>
 </html>

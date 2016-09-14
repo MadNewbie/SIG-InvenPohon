@@ -146,9 +146,11 @@
           longitude = pohon[0]["longitude"];
           latitude = pohon[0]["latitude"];
           center = new google.maps.LatLng(latitude,longitude);
+          var alur = new Array();
           map.panTo(center);
           // iterasi pembuat maker dan pengelompokan kriteria
           for(var i in pohon){
+            alur.push(new google.maps.LatLng(pohon[i].latitude,pohon[i].longitude));
             if(pohon[i].total_kerusakan<15){
               s_baik++;
               iconPohon='<?php echo base_url();?>assets/icon-gis/icon-tree-green.png';
@@ -170,6 +172,15 @@
               map:map,
               icon:iconPohon
             });
+            var Path = new google.maps.Polyline({
+              path:alur,
+              geodesic: true,
+              strokeColor: '#FF0000',
+              strokeOpacity: 1.0,
+              strokeWeight: 2
+            });
+
+            Path.setMap(map);
             markers.push(marker);
             google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
@@ -182,7 +193,7 @@
                   '<br>Nama Lokal: '+pohon[i].nama_lokal+
                   '<br>Nama Ilmiah: '+pohon[i].nama_ilmiah+
                   '<br>Tingkat Kerusakan: '+pohon[i].total_kerusakan+
-                  '<br>Tinggi:'+pohon[i].tinggi+' meter'
+                  '<br>Tinggi:'+parseFloat(pohon[i].tinggi).toFixed(2)+' meter'
                 );
                 infoWindows.open(map, marker);
             }
@@ -193,12 +204,33 @@
             tinggir+=parseFloat(pohon[i].tinggi);
           };
           // var markerCluster = new MarkerClusterer(map,markers);
-          var myData = new Array(['Sangat Baik',(s_baik/total)*100],['Baik',(baik/total)*100],['Buruk',(buruk/total)*100],['Sangat Buruk',(s_buruk/total)*100]);
-          var colors = ['#73a883','#8fd953','#d9cb53','#d95353'];
+          var p_s_baik = (s_baik/total)*100;
+          var p_baik = (baik/total)*100;
+          var p_buruk = (buruk/total)*100;
+          var p_s_buruk = (s_buruk/total)*100;
+          var myData = new Array();
+          var colors = new Array();
+          if(p_s_baik > 0){
+            myData.push(['Sangat baik',p_s_baik]);
+            colors.push('#73a883');
+          }
+          if(p_baik > 0){
+            myData.push(['Baik',p_baik]);
+            colors.push('#8fd953');
+          }
+          if(p_buruk > 0){
+            myData.push(['Buruk',p_buruk]);
+            colors.push('#d9cb53');
+          }
+          if(p_s_buruk > 0){
+            myData.push(['Sangat buruk',p_s_buruk]);
+            colors.push('#d95353');
+          }
           var myChart = new JSChart('diagram','pie');
+          var Title = 'Diagram Kondisi Fisik Pohon Jalan '+ document.getElementById('category2').options[document.getElementById('category2').selectedIndex].text;
           myChart.setDataArray(myData);
           myChart.colorizePie(colors);
-          myChart.setTitle('Diagram Kondisi Fisik Pohon Kota Malang');
+          myChart.setTitle(Title);
           myChart.setTitleColor('#857D7D');
           myChart.setPieUnitsColor('#000000');
           myChart.setPieValuesColor('#000000');
@@ -211,7 +243,7 @@
           myChart.setLegend('#d9cb53',"Buruk: "+String(buruk));
           myChart.setLegend('#d95353',"Sangat Buruk: "+String(s_buruk));
           myChart.setLegend('#000000',"Total Pohon: "+String(total));
-          myChart.setLegend('#000000',"Tinggi Rata-Rata: "+String(tinggir/total));
+          myChart.setLegend('#000000',"Tinggi Rata-Rata: "+String((tinggir/total).toFixed(2)));
           myChart.setLegendShow(true);
           myChart.setLegendPosition('right bottom');
           myChart.draw();
@@ -261,7 +293,7 @@
                   '<br>Nama Lokal: '+pohon[i].nama_lokal+
                   '<br>Nama Ilmiah: '+pohon[i].nama_ilmiah+
                   '<br>Tingkat Kerusakan: '+pohon[i].total_kerusakan+
-                  '<br>Tinggi:'+pohon[i].tinggi+' meter'
+                  '<br>Tinggi:'+parseFloat(pohon[i].tinggi).toFixed(2)+' meter'
                 );
                 infoWindows.open(map, marker);
             }
@@ -277,12 +309,35 @@
             tinggir+=parseFloat(pohon[i].tinggi);
           };
           // var markerCluster = new MarkerClusterer(map,markers);
-          var myData = new Array(['Sangat Baik',(s_baik/total)*100],['Baik',(baik/total)*100],['Buruk',(buruk/total)*100],['Sangat Buruk',(s_buruk/total)*100]);
-          var colors = ['#73a883','#8fd953','#d9cb53','#d95353'];
+          // var myData = new Array(['Sangat Baik',(s_baik/total)*100],['Baik',(baik/total)*100],['Buruk',(buruk/total)*100],['Sangat Buruk',(s_buruk/total)*100]);
+          // var colors = ['#73a883','#8fd953','#d9cb53','#d95353'];
+          var p_s_baik = (s_baik/total)*100;
+          var p_baik = (baik/total)*100;
+          var p_buruk = (buruk/total)*100;
+          var p_s_buruk = (s_buruk/total)*100;
+          var myData = new Array();
+          var colors = new Array();
+          if(p_s_baik > 0){
+            myData.push(['Sangat baik',p_s_baik]);
+            colors.push('#73a883');
+          }
+          if(p_baik > 0){
+            myData.push(['Baik',p_baik]);
+            colors.push('#8fd953');
+          }
+          if(p_buruk > 0){
+            myData.push(['Buruk',p_buruk]);
+            colors.push('#d9cb53');
+          }
+          if(p_s_buruk > 0){
+            myData.push(['Sangat buruk',p_s_buruk]);
+            colors.push('#d95353');
+          }
           var myChart = new JSChart('diagram','pie');
+          var Title = 'Diagram Kondisi Fisik Pohon '+ document.getElementById('category2').options[document.getElementById('category2').selectedIndex].text +' Di Kota Malang';
           myChart.setDataArray(myData);
           myChart.colorizePie(colors);
-          myChart.setTitle('Diagram Kondisi Fisik Pohon Kota Malang');
+          myChart.setTitle(Title);
           myChart.setTitleColor('#857D7D');
           myChart.setPieUnitsColor('#000000');
           myChart.setPieValuesColor('#000000');
@@ -295,7 +350,7 @@
           myChart.setLegend('#d9cb53',"Buruk: "+String(buruk));
           myChart.setLegend('#d95353',"Sangat Buruk: "+String(s_buruk));
           myChart.setLegend('#000000',"Total Pohon: "+String(total));
-          myChart.setLegend('#000000',"Tinggi Rata-Rata: "+String(tinggir/total));
+          myChart.setLegend('#000000',"Tinggi Rata-Rata: "+String((tinggir/total).toFixed(2)));
           myChart.setLegendShow(true);
           myChart.setLegendPosition('right bottom');
           myChart.draw();

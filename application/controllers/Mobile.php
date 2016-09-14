@@ -92,6 +92,7 @@ class Mobile extends CI_Controller
       'bentuk_tajuk'=>$raw_data->bentuk_tajuk,
       'latitude'=>floatval($raw_data->latitude),
       'longitude'=>floatval($raw_data->longitude),
+      'akurasi'=>floatval($raw_data->akurasi)
     ];
     if ($raw_data->ab_1 == "true") {
       $data->ab_1=1;
@@ -220,13 +221,14 @@ class Mobile extends CI_Controller
     // file_put_contents("data olahan",json_encode($data));
     $this->Pohon_model->insert($data);
     unset($data->id_nama_jalan,$data->id_jenis_pohon,$data->longitude,$data->latitude,$data->foto_pohon,$data->validasi);
-    $this->Kondisi_fisik_model->insert($data);
     // die();
     $this->db->limit(1);
     $this->db->order_by('id_pohon','DESC');
     $this->db->select('id_pohon');
     $query=$this->db->get('pohon');
     $lastid=$query->row(0);
+    $data->id_pohon = $lastid->id_pohon;
+    $this->Kondisi_fisik_model->insert($data);
     $result = array('id' => $lastid->id_pohon);
     echo json_encode($result);
   }

@@ -59,27 +59,6 @@
     </th>
   </tr>
   <tbody id="tbody-data">
-    <?php foreach ($data as $key => $value) {
-      echo str_replace([
-        '{IDPOHON}',
-        '{NAMALOKAL}',
-        '{NAMAILMIAH}',
-        '{NAMAJALAN}',
-        '{TINGGI}',
-        '{LEBARTAJUK}',
-        '{DIAMETERBATANG}',
-        '{TOTALKERUSAKAN}',
-      ],[
-          $value->id_pohon,
-          $value->nama_lokal,
-          $value->nama_ilmiah,
-          $value->nama_jalan,
-          $value->tinggi,
-          $value->lebar_tajuk,
-          $value->diameter_batang/pi(),
-          $value->total_kerusakan
-      ], $template);
-    } ?>
   </tbody>
 </table>
 <div id="modal-login" class="fade modal">
@@ -125,20 +104,25 @@
     $( "#dateAwal,#dateAkhir" ).datepicker({
       dateFormat:"dd-mm-yy"
     });
+    call_pagination(0);
   });
 
   $( "#dateAwal,#dateAkhir" ).change(function(){
+    call_pagination(0);
+  });
+
+  function call_pagination(start){
     $('#tbody-data').html('');
     var awal = $('#dateAwal').val();
     var akhir = $('#dateAkhir').val();
     $.ajax({
       'type':'POST',
       'data':{'awal':awal,'akhir':akhir},
-      'url':'<?php echo base_url(); ?>rekap/getByDate',
+      'url':'<?php echo base_url(); ?>rekap/getByDate/'+start,
       'success':function(data){
         var result=JSON.parse(data);
-        for ( var i in result) {
-          var datum = result[i];
+        for ( var i in result.data) {
+          var datum = result.data[i];
           var row = template;
           row = row.replace(/\{IDPOHON}/, datum.id_pohon);
           row = row.replace(/\{NAMALOKAL}/, datum.nama_lokal);
@@ -150,7 +134,14 @@
           row = row.replace(/\{TOTALKERUSAKAN}/, datum.total_kerusakan);
           $('#tbody-data').append(row);
         }
+        var trfoot = $('<tr>').append('<td colspan="100">').append(result.link);
+        $(trfoot).find('a').click(function(){
+          var href= $(this).attr('href').replace(/[^\d]/,'');
+          call_pagination(href);
+          return false;
+        });
+        $('#tbody-data').append(trfoot);
       }
     });
-  });
+  }
 </script>

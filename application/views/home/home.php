@@ -62,8 +62,30 @@
                 });
               };
               // var markerCluster = new MarkerClusterer(map,markers);
-              var myData = new Array(['Sangat Baik',(s_baik/total)*100],['Baik',(baik/total)*100],['Buruk',(buruk/total)*100],['Sangat Buruk',(s_buruk/total)*100]);
-              var colors = ['#73a883','#8fd953','#d9cb53','#d95353'];
+              // var myData = new Array(['Sangat Baik',(s_baik/total)*100],['Baik',(baik/total)*100],['Buruk',(buruk/total)*100],['Sangat Buruk',(s_buruk/total)*100]);
+              // var colors = ['#73a883','#8fd953','#d9cb53','#d95353'];
+          var p_s_baik = (s_baik/total)*100;
+          var p_baik = (baik/total)*100;
+          var p_buruk = (buruk/total)*100;
+          var p_s_buruk = (s_buruk/total)*100;
+          var myData = new Array();
+          var colors = new Array();
+          if(p_s_baik > 0){
+            myData.push(['Sangat baik',p_s_baik]);
+            colors.push('#73a883');
+          }
+          if(p_baik > 0){
+            myData.push(['Baik',p_baik]);
+            colors.push('#8fd953');
+          }
+          if(p_buruk > 0){
+            myData.push(['Buruk',p_buruk]);
+            colors.push('#d9cb53');
+          }
+          if(p_s_buruk > 0){
+            myData.push(['Sangat buruk',p_s_buruk]);
+            colors.push('#d95353');
+          }
               var myChart = new JSChart('diagram','pie');
               myChart.setDataArray(myData);
               myChart.colorizePie(colors);
@@ -88,17 +110,18 @@
   });
 </script>
 <div class="col-lg-12 col-md-12 col-xs-12 text-center" id="intro" style="height: 600px; padding-bottom:50px">
-  <h1 id="title">Sistem Informasi Geografis Ruang Terbuka Hijau</h1>
-  <img src="<?php echo base_url();?>assets/css/images/logotrans.png" alt="" height="300px" style="margin:40px"/>
-  <h4>Sistem informasi geograis tentang kondisi fisik pohon pada ruang terbuka hijau di area Kota Malang.</h4>
+  <h1 id="title">SIG-RTH</h1>
+  <h4>Sistem informasi geografis tentang kondisi fisik pohon pada ruang terbuka hijau</h4>
+  <img src="<?php echo base_url();?>assets/css/images/logotrans.jpg" alt="" height="300px" style="margin:40px"/><br>
+  <?php if (isset($_SESSION['tingkat_user'])&&$_SESSION['tingkat_user']=='surveyor') {
+    echo 'Proses pendataan kondisi fisik pohon dilakukan menggunakan aplikasi berbasis mobile. Aplikasi dapat diunduh <a href="'.base_url().'assets/downloads/sig-rth.apk.zip" class="btn btn-primary">di sini</a>';
+  } ?>
+  <h4>Developed By: Rachmad Yanuarianto, Moh. Ardiansyah</h4>
 </div>
 <div class="col-lg-8 col-md-12 col-xs-12" id="maps" style="height: 500px;">
 </div>
 <div class="col-lg-4 col-md-12 col-xs-12">
-  <div class="col-md-12 col-xs-12" id="diagram" style="height: 400px;">
-  </div>
-  <div class="col-md-12 col-xs-12" style="height: 100px;">
-    Developed by: Rachmad (311210035)
+  <div class="col-md-12 col-xs-12" id="diagram" style="height: 500px;">
   </div>
 </div>
 <!-- modal login -->
